@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0d0d1a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c49b2e"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#f0d060"/>
+    </linearGradient>
+    <linearGradient id="stroke-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#f0d060"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#bg)" stroke="url(#stroke-gold)" stroke-width="1.5"/>
+
+  <!-- Inner accent ring -->
+  <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(212,175,55,0.15)" stroke-width="0.8"/>
+
+  <!-- Lightning bolt / automation symbol -->
+  <!-- A stylized "A" with automation circuitry -->
+  <g transform="translate(50,50)">
+    <!-- Main bolt shape: automate symbol -->
+    <path d="M-6,-22 L-14,2 L-4,2 L-10,22 L14,-4 L2,-4 L10,-22 Z"
+          fill="url(#gold)"
+          stroke="none"/>
+    <!-- Subtle glow dot at tip -->
+    <circle cx="10" cy="-22" r="2.5" fill="#f0d060" opacity="0.6"/>
+    <circle cx="-10" cy="22" r="2.5" fill="#f0d060" opacity="0.6"/>
+  </g>
+
+  <!-- Small circuit nodes -->
+  <circle cx="20" cy="50" r="1.8" fill="#d4af37" opacity="0.4"/>
+  <circle cx="80" cy="50" r="1.8" fill="#d4af37" opacity="0.4"/>
+  <circle cx="50" cy="20" r="1.8" fill="#d4af37" opacity="0.4"/>
+  <circle cx="50" cy="80" r="1.8" fill="#d4af37" opacity="0.4"/>
+</svg>
