@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — Automate&Earn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e8e8f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .box { background: #13131f; border: 1px solid rgba(212,175,55,0.2); border-radius: 20px; padding: 40px; width: 100%; max-width: 380px; }
+    .logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 20px; color: #d4af37; margin-bottom: 8px; }
+    .sub { font-size: 13px; color: #9090a8; margin-bottom: 32px; }
+    label { display: block; font-size: 11px; font-weight: 700; font-family: 'Montserrat', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: #9090a8; margin-bottom: 6px; }
+    input[type=password] { width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; color: #e8e8f0; font-size: 14px; outline: none; margin-bottom: 16px; }
+    input[type=password]:focus { border-color: rgba(212,175,55,0.4); }
+    button { width: 100%; padding: 14px; background: linear-gradient(135deg, #d4af37, #f0d060); color: #000; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; }
+    .error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #fca5a5; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="logo">AUTOMATE&EARN</div>
+    <div class="sub">Admin access only</div>
+    <% if (error) { %><div class="error"><%= error %></div><% } %>
+    <form method="POST" action="/admin/login">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter admin password" autofocus required>
+      <button type="submit">Login →</button>
+    </form>
+  </div>
+</body>
+</html>
