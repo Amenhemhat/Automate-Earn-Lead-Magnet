@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     const { rows: products } = await pool.query(
       'SELECT * FROM products WHERE active = true ORDER BY order_index ASC, created_at DESC'
     );
-    res.render('index', { products });
+    res.render('index', { products, success: false, error: null });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
