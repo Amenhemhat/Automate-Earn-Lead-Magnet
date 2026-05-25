@@ -20,8 +20,12 @@
 </head>
 <body>
   <div class="box">
-    <div class="logo">AUTOMATE&EARN</div>
-    <div class="sub">Admin access only</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <img src="/logo.png" alt="AE" style="height:36px;width:36px;object-fit:contain" onerror="this.style.display='none'">
+      <div class="logo">AUTOMATE&amp;EARN</div>
+    </div>
+    <div class="sub" style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:28px">AUTOMATE TODAY. EARN FOREVER.</div>
+    <div style="font-size:12px;color:#5a5a72;margin-bottom:24px">Admin access only</div>
     <% if (error) { %><div class="error"><%= error %></div><% } %>
     <form method="POST" action="/admin/login">
       <label for="password">Password</label>
