@@ -3,829 +3,706 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free AI automation guides and tools from Automate&Earn. Download free PDF resources instantly.">
-  <meta property="og:title" content="Free AI Resources — Automate&Earn">
-  <meta property="og:description" content="Download premium AI automation guides completely free. No payment needed.">
+  <title>Automate&amp;Earn | Free AI Automation Tools</title>
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <meta name="description" content="Download free AI automation tools, playbooks, and templates. Built for entrepreneurs who ship fast.">
+  <meta property="og:title" content="Automate&Earn — Free AI Automation Tools">
+  <meta property="og:description" content="Practical AI tools and automation templates for solopreneurs. Download instantly, no payment.">
   <meta property="og:type" content="website">
-  <title>Free Resources — Automate&amp;Earn</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- Lucide icons (SVG icon library) -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Design tokens (OKLCH) ───────────────────────────── */
     :root {
-      --bg:        #05050f;
-      --surface:   rgba(255,255,255,0.04);
-      --surface-2: rgba(255,255,255,0.07);
-      --glass:     rgba(255,255,255,0.05);
-      --glass-border: rgba(255,255,255,0.10);
-      --gold:      #d4af37;
-      --gold-2:    #f0d060;
-      --gold-dim:  rgba(212,175,55,0.15);
-      --text:      #f0f0f8;
-      --text-2:    #9090b0;
-      --text-3:    #50506a;
-      --green:     #22c55e;
-      --r-sm: 10px; --r-md: 16px; --r-lg: 22px; --r-xl: 28px;
+      --bg:         oklch(0.10 0.008 75);
+      --bg-2:       oklch(0.14 0.008 75);
+      --bg-3:       oklch(0.18 0.010 75);
+      --line:       oklch(0.22 0.008 75);
+      --gold:       oklch(0.76 0.14 88);
+      --gold-mid:   oklch(0.62 0.11 88);
+      --gold-dim:   oklch(0.44 0.08 88);
+      --text:       oklch(0.93 0.005 75);
+      --text-2:     oklch(0.68 0.005 75);
+      --text-3:     oklch(0.46 0.005 75);
+      --green:      oklch(0.72 0.15 148);
+      --green-bg:   oklch(0.16 0.04 148);
+      --green-line: oklch(0.30 0.08 148);
+      --red:        oklch(0.68 0.18 30);
+      --red-bg:     oklch(0.14 0.04 30);
+      --red-line:   oklch(0.28 0.08 30);
+      --ff-d: 'Barlow Condensed', sans-serif;
+      --ff-b: 'Barlow', sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
     body {
-      font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      font-family: var(--ff-b);
+      line-height: 1.6;
     }
 
-    /* ── MESH GRADIENT BACKGROUND ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 60% 50% at 10% 20%, rgba(212,175,55,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 60% at 90% 80%, rgba(77,182,172,0.05) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(212,175,55,0.03) 0%, transparent 70%);
+    /* ─── Nav ─────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      padding: 0 clamp(1.25rem, 5vw, 4rem);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    /* ── PROGRESS BAR ── */
-    #progress-bar {
-      position: fixed; top: 0; left: 0; z-index: 9999; height: 2px; width: 0%;
-      background: linear-gradient(90deg, #c49b2e, var(--gold), var(--gold-2));
-      box-shadow: 0 0 10px rgba(212,175,55,0.5);
-      transition: width 0.1s linear;
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
     }
 
-    /* ── HEADER ── */
-    header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-      background: rgba(5,5,15,0.7);
-      backdrop-filter: blur(20px) saturate(160%);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      transition: background 0.3s;
+    .nav-logo img {
+      width: 28px;
+      height: 28px;
+      display: block;
     }
-    header.scrolled {
-      background: rgba(5,5,15,0.95);
-      border-color: rgba(212,175,55,0.15);
-    }
-    .header-inner {
-      max-width: 1160px; margin: 0 auto; height: 68px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px;
-    }
-    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-img { height: 40px; width: 40px; object-fit: contain; }
-    .logo-text { display: flex; flex-direction: column; }
-    .logo-name {
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px;
-      letter-spacing: 0.06em; line-height: 1;
-      background: linear-gradient(90deg, #c8c8c8, var(--gold) 50%, var(--gold-2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .logo-sub {
-      font-size: 8px; font-weight: 600; letter-spacing: 0.20em;
-      text-transform: uppercase; color: var(--text-3); margin-top: 3px;
-    }
-    .nav-badge {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 14px;
-      background: var(--gold-dim); border: 1px solid rgba(212,175,55,0.2);
-      border-radius: 100px;
-      font-size: 11px; font-weight: 600; color: var(--gold);
+
+    .nav-wordmark {
+      font-family: var(--ff-d);
+      font-weight: 900;
+      font-size: 1.15rem;
       letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text);
     }
-    .nav-badge-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 6px var(--green);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-    /* ── HERO ── */
+    .nav-wordmark em { color: var(--gold); font-style: normal; }
+
+    .nav-pill {
+      font-family: var(--ff-b);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      border: 1px solid var(--line);
+      padding: 0.3rem 0.8rem;
+      white-space: nowrap;
+    }
+
+    /* ─── Alerts ───────────────────────────────────────────── */
+    .alert {
+      padding: 1rem clamp(1.25rem, 5vw, 4rem);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .alert--success { background: var(--green-bg); border-bottom: 1px solid var(--green-line); }
+    .alert--error   { background: var(--red-bg);   border-bottom: 1px solid var(--red-line); }
+
+    .alert-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .alert--success .alert-dot { background: var(--green); }
+    .alert--error   .alert-dot { background: var(--red); }
+
+    .alert-body strong {
+      display: block;
+      font-family: var(--ff-d);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .alert--success .alert-body strong { color: var(--green); }
+    .alert--error   .alert-body strong { color: var(--red); }
+    .alert-body p { font-size: 0.82rem; color: var(--text-2); }
+
+    /* ─── Hero ─────────────────────────────────────────────── */
     .hero {
-      position: relative; z-index: 1;
-      padding: 160px 24px 80px; text-align: center;
-      overflow: hidden;
-    }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 16px;
-      background: var(--gold-dim); border: 1px solid rgba(212,175,55,0.25);
-      border-radius: 100px; margin-bottom: 28px;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--gold);
-      opacity: 0;
-    }
-    .hero-tag svg { width: 12px; height: 12px; }
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(36px, 7vw, 72px);
-      font-weight: 800; line-height: 1.04; letter-spacing: -0.02em;
-      color: var(--text); margin-bottom: 24px;
-      opacity: 0;
-    }
-    .hero h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 50%, #ffe87a 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .hero-sub {
-      font-size: clamp(15px, 2vw, 18px); color: var(--text-2);
-      max-width: 480px; margin: 0 auto 48px; line-height: 1.7;
-      opacity: 0;
-    }
-    .hero-sub strong { color: var(--text); font-weight: 600; }
-
-    /* Stats */
-    .hero-stats {
-      display: inline-flex; align-items: center; gap: 0;
-      background: var(--surface); border: 1px solid var(--glass-border);
-      border-radius: var(--r-xl); overflow: hidden; opacity: 0;
-    }
-    .hero-stat {
-      padding: 16px 32px; text-align: center;
-      border-right: 1px solid var(--glass-border);
-    }
-    .hero-stat:last-child { border-right: none; }
-    .stat-num {
-      font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; line-height: 1;
-      background: linear-gradient(135deg, var(--gold), var(--gold-2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .stat-label {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--text-3); margin-top: 4px;
+      min-height: calc(100svh - 56px);
+      padding: clamp(4rem, 10vh, 8rem) clamp(1.25rem, 5vw, 4rem) clamp(2rem, 5vh, 4rem);
+      display: grid;
+      grid-template-columns: 1fr min(420px, 38vw);
+      grid-template-rows: 1fr auto;
+      gap: 0 clamp(2rem, 5vw, 6rem);
+      align-content: center;
     }
 
-    /* Scroll hint */
-    .scroll-hint {
-      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      color: var(--text-3); opacity: 0;
-      animation: float 2.5s ease-in-out infinite;
-    }
-    .scroll-hint svg { width: 16px; height: 16px; color: var(--gold); }
-    .scroll-hint span { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; }
-    @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
-
-    /* ── TRUST BAR ── */
-    .trust-bar {
-      position: relative; z-index: 1;
-      padding: 0; margin: 0;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .trust-inner {
-      max-width: 1160px; margin: 0 auto; padding: 0 24px;
-      display: grid; grid-template-columns: repeat(4, 1fr);
-    }
-    .trust-item {
-      display: flex; align-items: center; justify-content: center;
-      gap: 10px; padding: 18px 16px;
-      border-right: 1px solid rgba(255,255,255,0.05);
-      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-      text-transform: uppercase; color: var(--text-3);
-    }
-    .trust-item:last-child { border-right: none; }
-    .trust-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; }
-
-    /* ── STORE SECTION ── */
-    .store {
-      position: relative; z-index: 1;
-      max-width: 1160px; margin: 0 auto; padding: 64px 24px 100px;
-    }
-    .store-header {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      margin-bottom: 36px;
-    }
-    .store-label {
-      font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
-      color: var(--text); letter-spacing: -0.01em;
-    }
-    .store-sub { font-size: 13px; color: var(--text-3); margin-top: 4px; }
-    .store-count {
-      font-size: 11px; font-weight: 600; color: var(--text-3);
-      letter-spacing: 0.08em; text-transform: uppercase;
+    .hero-left {
+      grid-column: 1;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    /* ── GRID ── */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-
-    /* ── GLASS CARD ── */
-    .card {
-      position: relative; border-radius: var(--r-lg);
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(12px);
-      overflow: hidden; display: flex; flex-direction: column;
-      transition: transform 0.3s cubic-bezier(.22,.68,0,1.2),
-                  border-color 0.3s, box-shadow 0.3s;
-      opacity: 0; cursor: pointer;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(212,175,55,0.35);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.1),
-                  inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-    /* Gold shimmer on hover */
-    .card::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(212,175,55,0.06) 0%, transparent 50%);
-      opacity: 0; transition: opacity 0.3s; pointer-events: none;
-    }
-    .card:hover::after { opacity: 1; }
-
-    /* Cover area */
-    .card-cover {
-      aspect-ratio: 4/3; position: relative; overflow: hidden;
-      background: linear-gradient(145deg, rgba(212,175,55,0.06) 0%, rgba(5,5,15,0.8) 100%);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .card-cover img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s cubic-bezier(.22,.68,0,1.1);
-    }
-    .card:hover .card-cover img { transform: scale(1.05); }
-    .cover-placeholder {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 14px; padding: 24px; text-align: center; width: 100%; height: 100%;
-    }
-    .cover-icon {
-      width: 56px; height: 56px; border-radius: 16px;
-      background: var(--gold-dim); border: 1px solid rgba(212,175,55,0.2);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .cover-icon svg { width: 28px; height: 28px; color: var(--gold); }
-    .cover-title {
-      font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
-      color: var(--text); line-height: 1.3;
-    }
-    /* Gradient fade into body */
-    .card-cover::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
-      background: linear-gradient(to top, var(--glass), transparent);
+    .hero-kicker {
+      font-family: var(--ff-b);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-mid);
+      margin-bottom: 1.5rem;
     }
 
-    /* FREE badge */
-    .card-badge {
-      position: absolute; top: 12px; right: 12px; z-index: 2;
-      padding: 4px 10px;
-      background: rgba(34,197,94,0.10); border: 1px solid rgba(34,197,94,0.25);
-      border-radius: 100px;
-      font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--green);
+    .hero-h1 {
+      font-family: var(--ff-d);
+      font-weight: 900;
+      font-size: clamp(4.5rem, 11vw, 10rem);
+      line-height: 0.90;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text);
     }
 
-    /* Card body */
-    .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
-    .card-title {
-      font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
-      color: var(--text); line-height: 1.3; letter-spacing: -0.01em;
-    }
-    .card-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; flex: 1; }
-    .card-meta {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 11px; color: var(--text-3); font-weight: 500;
-    }
-    .card-meta svg { width: 13px; height: 13px; }
+    .hero-h1 .gold { color: var(--gold); }
 
-    /* Download button */
-    .card-btn {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; padding: 13px;
-      background: linear-gradient(135deg, #c49b2e, var(--gold) 50%, var(--gold-2));
-      color: #000;
-      font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
-      letter-spacing: 0.04em; border: none; border-radius: var(--r-sm);
-      cursor: pointer; margin-top: 4px;
-      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(212,175,55,0.25);
+    .hero-right {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 0.5rem;
     }
-    .card-btn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(212,175,55,0.4); }
-    .card-btn:active { transform: scale(0.98); }
-    .card-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
-    /* ── EMPTY STATE ── */
-    .empty {
-      text-align: center; padding: 100px 24px;
-      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    .hero-desc {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 44ch;
+      margin-bottom: 2rem;
     }
-    .empty-icon {
-      width: 72px; height: 72px; border-radius: 24px;
-      background: var(--gold-dim); border: 1px solid rgba(212,175,55,0.15);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .empty-icon svg { width: 36px; height: 36px; color: var(--gold); }
-    .empty-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); }
-    .empty-sub { font-size: 14px; color: var(--text-2); line-height: 1.6; }
 
-    /* ── MODAL ── */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 1000;
-      display: flex; align-items: center; justify-content: center; padding: 24px;
-      background: rgba(0,0,0,0); backdrop-filter: blur(0px);
-      pointer-events: none; transition: background 0.3s, backdrop-filter 0.3s;
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: var(--ff-d);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.8rem 1.6rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.14s;
+      align-self: flex-start;
     }
-    .modal-overlay.open {
-      background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
-      pointer-events: all;
-    }
-    .modal {
-      position: relative; width: 100%; max-width: 460px;
-      background: rgba(12,12,24,0.95);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--r-xl);
-      padding: clamp(24px, 5vw, 40px);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.06);
-      transform: translateY(32px) scale(0.96); opacity: 0;
-      transition: transform 0.4s cubic-bezier(.22,.68,0,1.2), opacity 0.3s;
-    }
-    .modal-overlay.open .modal { transform: translateY(0) scale(1); opacity: 1; }
-    /* Gold top line */
-    .modal::before {
-      content: ''; position: absolute; top: 0; left: 28px; right: 28px; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-    .modal-close {
-      position: absolute; top: 16px; right: 16px;
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--surface); border: 1px solid var(--glass-border);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--text-2);
-      transition: background 0.2s, color 0.2s;
-    }
-    .modal-close svg { width: 16px; height: 16px; }
-    .modal-close:hover { background: rgba(239,68,68,0.1); color: #fca5a5; border-color: rgba(239,68,68,0.3); }
 
-    /* Product preview strip */
-    .modal-product {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 14px;
-      background: var(--gold-dim); border: 1px solid rgba(212,175,55,0.12);
-      border-radius: var(--r-sm); margin-bottom: 24px;
-    }
-    .modal-product-icon {
-      width: 38px; height: 38px; border-radius: 10px;
-      background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .modal-product-icon svg { width: 18px; height: 18px; color: var(--gold); }
-    .modal-product-name {
-      font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
-      color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .modal-product-type { font-size: 10px; color: var(--gold); font-weight: 600; letter-spacing: 0.08em; margin-top: 2px; }
+    .btn-primary:hover { background: oklch(0.83 0.14 88); }
+    .btn-primary svg   { width: 14px; height: 14px; }
 
-    .modal-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-    .modal-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 6px; line-height: 1.2; letter-spacing: -0.01em; }
-    .modal-sub { font-size: 13px; color: var(--text-2); margin-bottom: 24px; line-height: 1.6; }
+    .hero-baseline {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-top: clamp(2rem, 5vh, 4rem);
+    }
 
-    /* Form */
-    .form-group { margin-bottom: 14px; }
-    .form-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2); margin-bottom: 7px; }
+    .hero-rule { flex: 0 0 48px; height: 1px; background: var(--line); }
+
+    .hero-baseline-text {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    /* ─── Resources ────────────────────────────────────────── */
+    .resources {
+      padding: clamp(3rem, 8vh, 6rem) clamp(1.25rem, 5vw, 4rem);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding-top: 1.25rem;
+      margin-bottom: clamp(2rem, 5vw, 4rem);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .section-tally {
+      font-family: var(--ff-d);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      color: var(--gold-mid);
+    }
+
+    /* ─── Product rows (numbered list, not a card grid) ───── */
+    .product-list { display: flex; flex-direction: column; }
+
+    .product-row {
+      display: grid;
+      grid-template-columns: 56px 1fr 128px;
+      gap: 0 2rem;
+      padding: 2.75rem 0;
+      border-top: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .product-row:last-child { border-bottom: 1px solid var(--line); }
+
+    .product-index {
+      font-family: var(--ff-d);
+      font-weight: 900;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: var(--line);
+      letter-spacing: -0.02em;
+      padding-top: 0.15rem;
+      user-select: none;
+    }
+
+    .product-body { min-width: 0; }
+
+    .product-title {
+      font-family: var(--ff-d);
+      font-weight: 800;
+      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .product-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--text-2);
+      max-width: 56ch;
+      margin-bottom: 1.25rem;
+    }
+
+    .product-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--ff-d);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.12s;
+    }
+
+    .product-toggle:hover { color: oklch(0.85 0.14 88); }
+
+    .product-toggle svg {
+      width: 12px;
+      height: 12px;
+      transition: transform 0.22s ease-out;
+    }
+
+    .product-toggle.open svg { transform: rotate(90deg); }
+
+    /* ─── Inline form (grid-row collapse, no GSAP needed) ─── */
+    .product-form-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.30s ease-out;
+    }
+
+    .product-form-wrap.open {
+      grid-template-rows: 1fr;
+      margin-top: 1.5rem;
+    }
+
+    .product-form-inner { overflow: hidden; }
+
+    .inline-form {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      padding: 1.75rem;
+      max-width: 440px;
+    }
+
+    .inline-form-title {
+      font-family: var(--ff-d);
+      font-weight: 800;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .inline-form-sub {
+      font-size: 0.78rem;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
     .form-field {
-      display: flex; align-items: center; gap: 10px;
-      padding: 0 14px;
-      background: var(--surface); border: 1px solid var(--glass-border);
-      border-radius: var(--r-sm); height: 48px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-field:focus-within {
-      border-color: rgba(212,175,55,0.4);
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.08);
-    }
-    .form-field svg { width: 16px; height: 16px; color: var(--text-3); flex-shrink: 0; }
-    .form-input {
-      flex: 1; background: none; border: none; outline: none;
-      color: var(--text); font-size: 14px; font-family: 'Inter', sans-serif;
-      height: 100%;
-    }
-    .form-input::placeholder { color: var(--text-3); }
-
-    .modal-btn {
-      width: 100%; height: 50px; margin-top: 8px;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      background: linear-gradient(135deg, #c49b2e, var(--gold) 50%, var(--gold-2));
-      color: #000; border: none; border-radius: var(--r-sm);
-      font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
-      letter-spacing: 0.04em; cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 6px 24px rgba(212,175,55,0.3);
-    }
-    .modal-btn svg { width: 16px; height: 16px; }
-    .modal-btn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 10px 32px rgba(212,175,55,0.4); }
-    .modal-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .modal-privacy {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      margin-top: 12px; font-size: 11px; color: var(--text-3);
-    }
-    .modal-privacy svg { width: 12px; height: 12px; color: var(--gold); }
-    .modal-error {
-      display: none; padding: 10px 14px; margin-bottom: 14px;
-      background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
-      border-radius: var(--r-sm); font-size: 13px; color: #fca5a5;
+      display: block;
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-family: var(--ff-b);
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.14s;
+      margin-bottom: 0.6rem;
     }
 
-    /* Success state */
-    .modal-success {
-      display: none; text-align: center; padding: 24px 0;
-    }
-    .success-ring {
-      width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 16px;
-      background: rgba(34,197,94,0.1); border: 2px solid rgba(34,197,94,0.3);
-      display: flex; align-items: center; justify-content: center;
-      animation: pop-in 0.5s cubic-bezier(.22,.68,0,1.4);
-    }
-    .success-ring svg { width: 36px; height: 36px; color: var(--green); }
-    @keyframes pop-in { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .success-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
-    .success-sub { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+    .form-field:focus { border-color: var(--gold-dim); }
+    .form-field::placeholder { color: var(--text-3); }
 
-    /* ── FOOTER ── */
-    footer {
-      position: relative; z-index: 1;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 56px 24px;
-    }
-    .footer-inner {
-      max-width: 1160px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: start;
-    }
-    .footer-logo {
-      font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800;
-      background: linear-gradient(90deg, var(--gold), var(--gold-2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      margin-bottom: 10px;
-    }
-    .footer-desc { font-size: 13px; color: var(--text-3); line-height: 1.7; max-width: 300px; }
-    .footer-links-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 14px; }
-    .footer-links { display: flex; flex-direction: column; gap: 10px; }
-    .footer-link {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--text-2); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-link:hover { color: var(--gold); }
-    .footer-link svg { width: 15px; height: 15px; }
-    .footer-bottom {
-      max-width: 1160px; margin: 40px auto 0; padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 11px; color: var(--text-3); flex-wrap: wrap; gap: 8px;
+    .form-submit {
+      width: 100%;
+      padding: 0.8rem;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: var(--ff-d);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.14s;
     }
 
-    /* ── SPINNER ── */
-    .spinner {
-      width: 16px; height: 16px; border-radius: 50%;
-      border: 2px solid rgba(0,0,0,0.3); border-top-color: #000;
-      animation: spin 0.6s linear infinite; display: none;
-    }
-    .modal-btn.loading .spinner { display: block; }
-    .modal-btn.loading .btn-label { display: none; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .form-submit:hover { background: oklch(0.83 0.14 88); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .trust-inner { grid-template-columns: repeat(2, 1fr); }
-      .trust-item:nth-child(2) { border-right: none; }
-      .hero-stats { flex-direction: column; gap: 0; border-radius: var(--r-lg); }
-      .hero-stat { border-right: none; border-bottom: 1px solid var(--glass-border); }
-      .hero-stat:last-child { border-bottom: none; }
-      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .form-legal {
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-top: 0.75rem;
     }
-    @media (max-width: 480px) {
-      .trust-inner { grid-template-columns: 1fr; }
-      .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-      .trust-item:last-child { border-bottom: none; }
-      .grid { grid-template-columns: 1fr; }
-      .hero { padding: 120px 16px 72px; }
+
+    /* ─── Cover image ──────────────────────────────────────── */
+    .product-cover {
+      width: 128px;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-cover-placeholder {
+      width: 128px;
+      height: 170px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-cover-placeholder svg { width: 28px; height: 28px; color: var(--line); }
+
+    /* ─── Empty state ──────────────────────────────────────── */
+    .empty { padding: 5rem 0; }
+
+    .empty-title {
+      font-family: var(--ff-d);
+      font-weight: 800;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-2);
+      margin-bottom: 0.3rem;
+    }
+
+    .empty-sub { font-size: 0.85rem; color: var(--text-3); }
+
+    /* ─── Footer ────────────────────────────────────────────── */
+    .footer {
+      padding: 1.75rem clamp(1.25rem, 5vw, 4rem);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-mark {
+      font-family: var(--ff-d);
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-2);
+    }
+
+    .footer-mark em { color: var(--gold); font-style: normal; }
+
+    .footer-note {
+      font-size: 0.68rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    /* ─── Page-load reveal (CSS keyframes, no GSAP) ─────────── */
+    .reveal { opacity: 0; transform: translateY(18px); }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    .reveal-1 { animation: fadeUp 0.50s 0.05s ease-out forwards; }
+    .reveal-2 { animation: fadeUp 0.55s 0.15s ease-out forwards; }
+    .reveal-3 { animation: fadeUp 0.50s 0.28s ease-out forwards; }
+    .reveal-4 { animation: fadeUp 0.45s 0.42s ease-out forwards; }
+
+    /* ─── Mobile ────────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        min-height: auto;
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+      }
+
+      .hero-right {
+        grid-column: 1;
+        grid-row: 2;
+        justify-content: flex-start;
+        padding-bottom: 0;
+      }
+
+      .hero-baseline { grid-row: 3; }
+
+      .product-row { grid-template-columns: 44px 1fr; }
+      .product-cover, .product-cover-placeholder { display: none; }
+
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; animation: none; }
     }
   </style>
 </head>
 <body>
 
-<div id="progress-bar"></div>
-
-<!-- HEADER -->
-<header id="site-header">
-  <div class="header-inner">
-    <a href="/" class="logo-wrap">
-      <img src="/logo.svg" alt="Automate&Earn" class="logo-img" onerror="this.style.display='none'">
-      <div class="logo-text">
-        <span class="logo-name">AUTOMATE&amp;EARN</span>
-        <span class="logo-sub">Automate Today. Earn Forever.</span>
-      </div>
+  <!-- ── Nav ─────────────────────────────────────────────── -->
+  <nav class="nav">
+    <a href="/" class="nav-logo">
+      <img src="/logo.svg" alt="Automate&amp;Earn logo">
+      <span class="nav-wordmark">Automate<em>&amp;</em>Earn</span>
     </a>
-    <div class="nav-badge">
-      <div class="nav-badge-dot"></div>
-      <%= products.length %> Free Resource<%= products.length !== 1 ? 's' : '' %>
-    </div>
-  </div>
-</header>
+    <span class="nav-pill"><%= products.length %> Free Resource<%= products.length !== 1 ? 's' : '' %></span>
+  </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-tag" id="hero-tag">
-    <i data-lucide="zap"></i>
-    Free Downloads — No Payment Needed
-  </div>
-  <h1 id="hero-h1">
-    AI Tools Built to<br>
-    <em>10× Your Output</em>
-  </h1>
-  <p class="hero-sub" id="hero-sub">
-    Download any resource <strong>completely free</strong>. Enter your name and email and your PDF starts downloading instantly.
-  </p>
-  <div class="hero-stats" id="hero-stats">
-    <div class="hero-stat">
-      <div class="stat-num" data-count="<%= products.length %>">0</div>
-      <div class="stat-label">Free Guides</div>
-    </div>
-    <div class="hero-stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Free Forever</div>
-    </div>
-    <div class="hero-stat">
-      <div class="stat-num">PDF</div>
-      <div class="stat-label">Instant Download</div>
+  <% if (success) { %>
+  <div class="alert alert--success" role="status">
+    <div class="alert-dot"></div>
+    <div class="alert-body">
+      <strong>Download ready</strong>
+      <p>Your guide is on its way. Check your inbox.</p>
     </div>
   </div>
-  <div class="scroll-hint" id="scroll-hint">
-    <span>Scroll</span>
-    <i data-lucide="chevron-down"></i>
-  </div>
-</section>
-
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-inner">
-    <div class="trust-item"><i data-lucide="shield-check"></i> No credit card</div>
-    <div class="trust-item"><i data-lucide="zap"></i> Instant download</div>
-    <div class="trust-item"><i data-lucide="mail-x"></i> Zero spam</div>
-    <div class="trust-item"><i data-lucide="user-x"></i> Unsubscribe anytime</div>
-  </div>
-</div>
-
-<!-- PRODUCTS -->
-<section class="store">
-  <div class="store-header">
-    <div>
-      <div class="store-label">Free Resources</div>
-      <div class="store-sub">Download any guide instantly — no cost, no catch</div>
-    </div>
-    <div class="store-count"><%= products.length %> guide<%= products.length !== 1 ? 's' : '' %></div>
-  </div>
-
-  <% if (products.length === 0) { %>
-    <div class="empty">
-      <div class="empty-icon"><i data-lucide="package"></i></div>
-      <div class="empty-title">Resources Coming Soon</div>
-      <div class="empty-sub">Check back shortly — guides are being uploaded now.</div>
-    </div>
-  <% } else { %>
-    <div class="grid">
-      <% products.forEach(function(product, i) { %>
-        <div class="card">
-          <div class="card-cover">
-            <% if (product.cover_image) { %>
-              <img src="/uploads/images/<%= product.cover_image %>" alt="<%= product.title %>" loading="lazy">
-            <% } else { %>
-              <div class="cover-placeholder">
-                <div class="cover-icon"><i data-lucide="file-text"></i></div>
-                <div class="cover-title"><%= product.title %></div>
-              </div>
-            <% } %>
-            <span class="card-badge">FREE</span>
-          </div>
-          <div class="card-body">
-            <div class="card-title"><%= product.title %></div>
-            <div class="card-desc"><%= product.description || 'A premium AI automation guide to help you work smarter and earn more.' %></div>
-            <div class="card-meta">
-              <i data-lucide="file-text"></i> PDF Guide &nbsp;·&nbsp;
-              <i data-lucide="download"></i> Free
-            </div>
-            <button class="card-btn" onclick="openModal(<%= product.id %>, '<%= product.title.replace(/'/g, "\\'") %>', '<%= product.cover_image || '' %>')">
-              <i data-lucide="download"></i>
-              Download Free
-            </button>
-          </div>
-        </div>
-      <% }); %>
-    </div>
   <% } %>
-</section>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close dialog">
-      <i data-lucide="x"></i>
-    </button>
+  <% if (error) { %>
+  <div class="alert alert--error" role="alert">
+    <div class="alert-dot"></div>
+    <div class="alert-body">
+      <strong>Something went wrong</strong>
+      <p><%= error %></p>
+    </div>
+  </div>
+  <% } %>
 
-    <div class="modal-product">
-      <div class="modal-product-icon"><i data-lucide="file-text"></i></div>
-      <div>
-        <div class="modal-product-name" id="modalProductName">Guide</div>
-        <div class="modal-product-type">PDF Guide · Free</div>
-      </div>
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hero-left">
+      <p class="hero-kicker reveal reveal-1">Free Downloads &mdash; No Payment Needed</p>
+      <h1 class="hero-h1 reveal reveal-2">
+        Automate<br>
+        <span class="gold">Your<br>Income.</span>
+      </h1>
     </div>
 
-    <div class="modal-tag">Free Download</div>
-    <div class="modal-title" id="modalTitle">Get Instant Access</div>
-    <div class="modal-sub">Enter your details and your download starts immediately.</div>
+    <div class="hero-right reveal reveal-3">
+      <p class="hero-desc">
+        Every resource here is a practical tool, playbook, or template from real AI automation workflows. Enter your name and email &mdash; your PDF downloads immediately.
+      </p>
+      <a href="#resources" class="btn-primary">
+        Browse Resources
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+      </a>
+    </div>
 
-    <div class="modal-error" id="modalError"></div>
+    <div class="hero-baseline reveal reveal-4" aria-hidden="true">
+      <div class="hero-rule"></div>
+      <span class="hero-baseline-text">Scroll to explore</span>
+    </div>
+  </section>
 
-    <div id="formSection">
-      <form id="downloadForm" onsubmit="submitDownload(event)" novalidate>
-        <input type="hidden" id="productId" value="">
-        <div class="form-group">
-          <label class="form-label" for="nameInput">Your Name</label>
-          <div class="form-field">
-            <i data-lucide="user"></i>
-            <input class="form-input" type="text" id="nameInput" placeholder="e.g. Alex Johnson" required autocomplete="name">
+  <!-- ── Resources ──────────────────────────────────────── -->
+  <section class="resources" id="resources" aria-label="Free Resources">
+    <div class="section-header">
+      <span class="section-label">Free Resources</span>
+      <span class="section-tally"><%= products.length %> Guide<%= products.length !== 1 ? 's' : '' %></span>
+    </div>
+
+    <% if (products.length === 0) { %>
+    <div class="empty">
+      <p class="empty-title">Guides loading soon</p>
+      <p class="empty-sub">New resources drop shortly. Check back in a moment.</p>
+    </div>
+    <% } else { %>
+    <div class="product-list">
+      <% products.forEach((product, i) => { %>
+      <article class="product-row" id="row-<%= product.id %>">
+
+        <span class="product-index" aria-hidden="true"><%= String(i + 1).padStart(2, '0') %></span>
+
+        <div class="product-body">
+          <h2 class="product-title"><%= product.title %></h2>
+          <p class="product-desc"><%= product.description %></p>
+
+          <button
+            class="product-toggle"
+            id="toggle-<%= product.id %>"
+            aria-expanded="false"
+            aria-controls="form-<%= product.id %>"
+            onclick="handleToggle(<%= product.id %>)"
+          >
+            <span>Get Free Access</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+
+          <div
+            class="product-form-wrap"
+            id="form-<%= product.id %>"
+            role="region"
+            aria-label="Download form for <%= product.title %>"
+          >
+            <div class="product-form-inner">
+              <div class="inline-form">
+                <p class="inline-form-title">Get This Free</p>
+                <p class="inline-form-sub">Enter your email. Download starts instantly.</p>
+                <form method="POST" action="/download">
+                  <input type="hidden" name="product_id" value="<%= product.id %>">
+                  <input
+                    class="form-field"
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    autocomplete="name"
+                    required
+                  >
+                  <input
+                    class="form-field"
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    autocomplete="email"
+                    required
+                  >
+                  <button class="form-submit" type="submit">Download Now</button>
+                </form>
+                <p class="form-legal">No spam. Unsubscribe anytime.</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="emailInput">Email Address</label>
-          <div class="form-field">
-            <i data-lucide="mail"></i>
-            <input class="form-input" type="email" id="emailInput" placeholder="you@example.com" required autocomplete="email">
-          </div>
+
+        <% if (product.cover_image) { %>
+        <img
+          class="product-cover"
+          src="/uploads/images/<%= product.cover_image %>"
+          alt="<%= product.title %> cover"
+          loading="lazy"
+          width="128"
+          height="170"
+        >
+        <% } else { %>
+        <div class="product-cover-placeholder" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="2" width="16" height="20" rx="1"/>
+            <line x1="8" y1="7" x2="16" y2="7"/>
+            <line x1="8" y1="11" x2="16" y2="11"/>
+            <line x1="8" y1="15" x2="12" y2="15"/>
+          </svg>
         </div>
-        <button class="modal-btn" type="submit" id="submitBtn">
-          <div class="spinner"></div>
-          <span class="btn-label" id="btnText">
-            <i data-lucide="download" style="display:inline-block;width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>
-            Get My Free Download
-          </span>
-        </button>
-      </form>
-      <div class="modal-privacy">
-        <i data-lucide="lock"></i>
-        No spam, ever. Unsubscribe anytime.
-      </div>
+        <% } %>
+
+      </article>
+      <% }) %>
     </div>
+    <% } %>
+  </section>
 
-    <div class="modal-success" id="successSection">
-      <div class="success-ring"><i data-lucide="check"></i></div>
-      <div class="success-title">Download Started!</div>
-      <div class="success-sub">Your guide is downloading now.<br>Check your downloads folder.</div>
-    </div>
-  </div>
-</div>
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer class="footer">
+    <span class="footer-mark">Automate<em>&amp;</em>Earn</span>
+    <span class="footer-note">No spam &middot; Unsubscribe anytime</span>
+  </footer>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-logo">AUTOMATE&amp;EARN</div>
-      <div class="footer-desc">AI automation tools, guides, and systems for solopreneurs who want to work smarter and earn more.</div>
-    </div>
-    <div>
-      <div class="footer-links-label">Follow Along</div>
-      <div class="footer-links">
-        <a href="https://twitter.com/automatearnai" target="_blank" rel="noopener" class="footer-link">
-          <i data-lucide="twitter"></i> Twitter / X
-        </a>
-        <a href="https://linkedin.com/in/automatearnai" target="_blank" rel="noopener" class="footer-link">
-          <i data-lucide="linkedin"></i> LinkedIn
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© <%= new Date().getFullYear() %> Automate&amp;Earn. All rights reserved.</span>
-    <span>Built for solopreneurs who move fast.</span>
-  </div>
-</footer>
+  <script>
+    function handleToggle(id) {
+      const wrap   = document.getElementById('form-' + id);
+      const toggle = document.getElementById('toggle-' + id);
+      const isOpen = wrap.classList.contains('open');
 
-<script>
-/* Init Lucide icons */
-document.addEventListener('DOMContentLoaded', () => { if(window.lucide) lucide.createIcons(); });
+      // Close all open forms first
+      document.querySelectorAll('.product-form-wrap.open').forEach(el => el.classList.remove('open'));
+      document.querySelectorAll('.product-toggle.open').forEach(el => {
+        el.classList.remove('open');
+        el.setAttribute('aria-expanded', 'false');
+        el.querySelector('span').textContent = 'Get Free Access';
+      });
 
-/* Scroll progress */
-const progressBar = document.getElementById('progress-bar');
-const siteHeader  = document.getElementById('site-header');
-window.addEventListener('scroll', () => {
-  const s = window.scrollY, max = document.documentElement.scrollHeight - window.innerHeight;
-  progressBar.style.width = (s / max * 100) + '%';
-  siteHeader.classList.toggle('scrolled', s > 20);
-}, { passive: true });
-
-/* GSAP */
-window.addEventListener('load', () => {
-  if (window.lucide) lucide.createIcons();
-
-  const show = (sel) => { const el = document.querySelector(sel); if(el) el.style.opacity = '1'; };
-
-  // Fallback if GSAP doesn't load
-  setTimeout(() => {
-    ['#hero-tag','#hero-h1','#hero-sub','#hero-stats','#scroll-hint'].forEach(s => {
-      const el = document.querySelector(s);
-      if (el && getComputedStyle(el).opacity === '0') el.style.opacity = '1';
-    });
-    document.querySelectorAll('.card').forEach(c => { if(getComputedStyle(c).opacity === '0') c.style.opacity = '1'; });
-  }, 1000);
-
-  if (typeof gsap === 'undefined') {
-    ['#hero-tag','#hero-h1','#hero-sub','#hero-stats','#scroll-hint'].forEach(show);
-    document.querySelectorAll('.card').forEach(c => c.style.opacity = '1');
-    return;
-  }
-
-  gsap.timeline({ defaults: { ease: 'power3.out' } })
-    .fromTo('#hero-tag',   { opacity:0, y:16 }, { opacity:1, y:0, duration:0.6 })
-    .fromTo('#hero-h1',    { opacity:0, y:28 }, { opacity:1, y:0, duration:0.7 }, '-=0.3')
-    .fromTo('#hero-sub',   { opacity:0, y:20 }, { opacity:1, y:0, duration:0.6 }, '-=0.4')
-    .fromTo('#hero-stats', { opacity:0, y:16 }, { opacity:1, y:0, duration:0.6 }, '-=0.3')
-    .fromTo('#scroll-hint',{ opacity:0 },       { opacity:1, duration:0.5 }, '-=0.1');
-
-  // Count-up
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const t = parseInt(el.dataset.count, 10);
-    if (!isNaN(t) && t > 0) {
-      const obj = { val: 0 };
-      gsap.to(obj, { val: t, duration: 1.2, ease: 'power2.out', delay: 0.8,
-        onUpdate: () => el.textContent = Math.round(obj.val) });
-    }
-  });
-
-  // Card reveals
-  document.querySelectorAll('.card').forEach((card, i) => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        gsap.fromTo(card, { opacity:0, y:36, scale:0.97 }, { opacity:1, y:0, scale:1, duration:0.55, ease:'power2.out', delay: i % 3 * 0.08 });
-        obs.disconnect();
+      if (!isOpen) {
+        wrap.classList.add('open');
+        toggle.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.querySelector('span').textContent = 'Close';
+        setTimeout(() => {
+          wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 60);
       }
-    }, { threshold: 0.1 });
-    obs.observe(card);
-  });
-});
-
-/* Modal */
-function openModal(productId, title, coverImage) {
-  document.getElementById('productId').value = productId;
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalProductName').textContent = title;
-  document.getElementById('modalError').style.display = 'none';
-  document.getElementById('downloadForm').reset();
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = false; btn.classList.remove('loading');
-  document.getElementById('btnText').innerHTML = '<i data-lucide="download" style="display:inline-block;width:16px;height:16px;vertical-align:middle;margin-right:6px"></i>Get My Free Download';
-  document.getElementById('formSection').style.display = '';
-  document.getElementById('successSection').style.display = 'none';
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  if (window.lucide) lucide.createIcons();
-  setTimeout(() => document.getElementById('nameInput').focus(), 350);
-}
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function handleOverlayClick(e) { if(e.target === document.getElementById('modalOverlay')) closeModal(); }
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
-
-/* Download */
-async function submitDownload(e) {
-  e.preventDefault();
-  const productId = document.getElementById('productId').value;
-  const name  = document.getElementById('nameInput').value.trim();
-  const email = document.getElementById('emailInput').value.trim();
-  const btn   = document.getElementById('submitBtn');
-  const errBox = document.getElementById('modalError');
-  if (!name || !email) return;
-  btn.disabled = true; btn.classList.add('loading');
-  errBox.style.display = 'none';
-  try {
-    const res = await fetch('/download/' + productId, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email })
-    });
-    if (!res.ok) { const d = await res.json().catch(()=>({})); throw new Error(d.error || 'Something went wrong.'); }
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-    document.getElementById('formSection').style.display = 'none';
-    document.getElementById('successSection').style.display = 'block';
-    if (window.lucide) lucide.createIcons();
-    setTimeout(() => closeModal(), 3000);
-  } catch(err) {
-    errBox.textContent = err.message; errBox.style.display = 'block';
-    btn.disabled = false; btn.classList.remove('loading');
-  }
-}
-</script>
+    }
+  </script>
 </body>
 </html>
