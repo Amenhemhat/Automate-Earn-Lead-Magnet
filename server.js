@@ -9,10 +9,19 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ── PostgreSQL ──────────────────────────────────────────────────
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
+// Support both a full DATABASE_URL or individual PGHOST/PGPORT/etc vars
+// (Individual vars are safer when passwords contain special characters)
+const poolConfig = process.env.DATABASE_URL
+  ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
+  : {
+      host:     process.env.PGHOST,
+      port:     parseInt(process.env.PGPORT || '5432'),
+      database: process.env.PGDATABASE,
+      user:     process.env.PGUSER,
+      password: process.env.PGPASSWORD,
+      ssl:      { rejectUnauthorized: false }
+    };
+const pool = new Pool(poolConfig);
 
 // ── Storage paths ───────────────────────────────────────────────
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
